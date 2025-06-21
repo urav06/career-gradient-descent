@@ -1,0 +1,9 @@
+# Environment
+.env
+.env.leave
+
+# OS Specific
+.DS_Store
+
+# IDE
+.vscode/
