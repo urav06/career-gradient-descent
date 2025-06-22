@@ -1,0 +1,21 @@
+# Bootstrap configuration
+project_id               = "your-gcp-project-id"
+region                   = "us-central1"
+terraform_state_bucket   = "your-portfolio-terraform-state"
+
+# Application resource names
+resource_names = {
+  frontend_bucket         = "your-portfolio-frontend"
+  storage_backend         = "your-portfolio-storage-backend"
+  url_map                 = "your-portfolio-router"
+  ip_address              = "your-portfolio-ip"
+  http_proxy              = "your-portfolio-http-proxy"
+  forwarding_rule         = "your-portfolio-http"
+  ssl_certificate         = "your-portfolio-ssl-cert"
+  https_proxy             = "your-portfolio-https-proxy"
+  https_forwarding_rule   = "your-portfolio-https"
+}
+
+# Domain configuration
+domain_name    = ""                    # e.g., "yourportfolio.com"
+dns_zone_name  = ""                    # e.g., "yourportfolio-com" (from gcloud dns managed-zones list)

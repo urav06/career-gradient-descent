@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+/* Essential global styles only - everything else handled by design system */
+
+/* Improved text rendering */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Focus management for accessibility */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid rgb(59 130 246 / 0.5);
+  outline-offset: 2px;
+}
+
+/* Text selection styling */
+::selection {
+  background-color: rgb(191 219 254);
+  color: rgb(30 58 138);
+}
+
+.dark ::selection {
+  background-color: rgb(30 58 138);
+  color: rgb(191 219 254);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
