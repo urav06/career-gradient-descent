@@ -4,4 +4,21 @@ __pycache__/
 *$py.class
 
 # Virtual environment
-/venv
+venv/
+
+# LaTeX temporary files
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Generated output files
+output/
+
+# Content files (keep only sample and schema)
+content/*.yaml
+content/*.yml
+!content/sample.yaml
+!content/schema.yaml

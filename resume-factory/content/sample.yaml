@@ -1,0 +1,85 @@
+basics:
+  name: "Urav Maniar"
+
+links:
+  - url: "mailto:urav06@gmail.com"
+    display: "urav06@gmail.com"
+  - url: "https://www.linkedin.com/in/urav/"
+    display: "linkedin.com/in/urav/"
+  - url: "https://github.com/urav06"
+    display: "github.com/urav06"
+  - url: "https://urav-maniar.com/"
+    display: "urav-maniar.com"
+
+summary: "Driven ML Engineer and Software Developer with 3+ years building production systems at scale. Currently pursuing Master's in Data Science (Research Stream) at Monash University, advancing time-series analysis research. Proven track record of scaling systems to 1M+ users, achieving 50% cost optimizations, and leading technical migrations. Combines analytical thinking with practical engineering expertise, resourceful approach to complex problems spanning system design, machine learning, and infrastructure optimization."
+
+education:
+  - institution: "Monash University"
+    location: null
+    degree: "Master of Data Science (Research Stream)"
+    dates: "Feb 2024 - Dec 2025"
+    details:
+      - "Research on ensemble methods for time-series classification under Dr. Angus Dempster"
+      - "High Distinction grades in Machine Learning, Multi-Agent Systems, Data Wrangling, Project Management, and IT Research Methods"
+
+  - institution: "Monash University"
+    location: null
+    degree: "Bachelor of Computer Science"
+    dates: "Oct 2018 - Dec 2021"
+    details:
+      - "Committee member of the Monash University Tech Club, won 2 competitive programming competitions"
+      - "Coursework: Advanced Algorithms, Compiler Development, Programming Paradigms, Computer Architecture"
+
+experience:
+  - company: "Fisdom"
+    location: "Bengaluru, India"
+    title: "Software Engineer"
+    dates: "Feb 2023 - Jan 2024"
+    bullets:
+      - "Designed and deployed Python-Flask microservices on Google Cloud Run serving 1M+ users with optimized gunicorn threading"
+      - "Reduced infrastructure costs by 50% through CPU-count and instance-count ratio optimization"
+      - "Led comprehensive organization-wide migration to Terraform for infrastructure management"
+      - "Built internal Python library reducing code duplication across 8+ repositories"
+
+  - company: "Convin"
+    location: "Bengaluru, India"
+    title: "Software Engineer"
+    dates: "Feb 2022 - Feb 2023"
+    bullets:
+      - "Built 7 OAuth integrations end-to-end with platforms including Zoom, Google Meet, Dialpad, and HubSpot using Python and Django"
+      - "Designed systematic abstract interface system for standardizing new platform integrations"
+      - "Mentored intern team and managed handoff of integration projects"
+
+  - company: "Photobook Worldwide"
+    location: "Kuala Lumpur, Malaysia"
+    title: "Web Developer Intern"
+    dates: "Jul 2020 - Dec 2020"
+    bullets:
+      - "Developed recommendation system for customized thumbnail generation as part of 4-person team"
+      - "Built CMS features using agile methodology with regular sprint deliveries"
+
+projects:
+  - name: "Chess Engine"
+    description: "Open-source Python chess engine with MinMax algorithms, neural network board evaluation, and reinforcement learning agents using Q-learning"
+    link: "github.com/urav06/chess"
+  - name: "SMEasy"
+    description: "ML Lead and Co-founder for fintech startup focused on SME Lending. Hackathon finalist and attracted investor interest"
+
+# skills:
+#   "Programming": "Python, JavaScript, TypeScript, Haskell, Java, C++"
+#   "ML & Data Science": "PyTorch, TensorFlow, Scikit-learn, NumPy, Pandas, Jupyter, MiniZinc"
+#   "Backend & APIs": "Django, Flask, FastAPI, PostgreSQL, OAuth, REST APIs"
+#   "Cloud & DevOps": "Google Cloud Platform, Docker, Kubernetes, Terraform, CI/CD, Git"
+#   "Specializations": "System Design, Microservices, Time-Series Analysis, Multi-Agent Systems"
+
+# Remove placeholder certifications - add real ones if available
+# certifications:
+#   - name: "Your Real Certification"
+#     issuer: "Real Issuer"
+#     date: "Real Date"
+#     credential_id: "Real ID"
+#     verification_url: "Real URL"
+
+meta:
+  subject: "ML Engineer with 3+ years experience in production systems, Python, and cloud architecture"
+  keywords: "Machine Learning, Python, Software Engineering, Cloud Architecture, Google Cloud, Data Science, Algorithms"

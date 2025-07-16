@@ -8,10 +8,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     texlive-fonts-recommended \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-RUN pip install --no-cache-dir jinja2 pyyaml
-
 WORKDIR /workspace
-COPY generate.py /workspace/
 
-ENTRYPOINT ["python", "generate.py"]
+# Copy requirements.txt and install dependencies
+COPY requirements.txt /workspace/requirements.txt
+RUN pip install --no-cache-dir -r /workspace/requirements.txt
+
+# Copy the resume factory package
+COPY resume_factory/ /workspace/resume_factory/
+
+ENTRYPOINT ["python", "-m", "resume_factory"]

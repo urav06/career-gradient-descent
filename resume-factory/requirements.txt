@@ -1,0 +1,4 @@
+jinja2
+pyyaml
+pydantic
+pylatex

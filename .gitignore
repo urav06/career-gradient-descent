@@ -1,9 +1,12 @@
-# Environment
-.env
-.env.leave
-
 # OS Specific
 .DS_Store
+Thumbs.db
 
-# IDE
+# IDE files
 .vscode/
+.idea/
+*.swp
+*.swo
+
+# Tooling
+CLAUDE.md

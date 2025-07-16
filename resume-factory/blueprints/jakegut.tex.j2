@@ -1,7 +1,7 @@
 %-------------------------
 % Resume in LaTeX
-% Author : Jake Gutierrez (original)
-% Modified for Jinja2 templating
+% Author : Jake Gutierrez
+% Taken From: https://github.com/jakegut/resume
 % License : MIT
 %------------------------
 
@@ -14,11 +14,33 @@
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{verbatim}
 \usepackage{enumitem}
-\usepackage[hidelinks,pdftitle={<<pdf_title>>},pdfauthor={<<basics.name>>}]{hyperref}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    pdftitle={<<basics.name|escape_latex>> Resume},
+    pdfauthor={<<basics.name|escape_latex>>},
+    pdfcreator={<<basics.name|escape_latex>>},<@ if meta @><@ if meta.subject @>
+    pdfsubject={<<meta.subject|escape_latex>>},<@ endif @><@ if meta.keywords @>
+    pdfkeywords={<<meta.keywords|escape_latex>>},<@ endif @><@ endif @>
+    pdflang={en-US},
+    pdfdisplaydoctitle=true
+}
 \usepackage{fancyhdr}
 \usepackage[english]{babel}
 \usepackage{tabularx}
 \input{glyphtounicode}
+
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
 
 \pagestyle{fancy}
 \fancyhf{} % clear all header and footer fields
@@ -49,6 +71,14 @@
 
 %-------------------------
 % Custom commands
+
+% ATS-optimized invisible text using PDF rendering mode 3 (zero dimensions)
+\newcommand{\atsKeywords}[1]{%
+  \ifx\relax#1\relax\else% Only if argument is not empty
+    \smash{\makebox[0pt]{\pdfliteral page{q 3 Tr}#1\pdfliteral page{Q}}}%
+  \fi%
+}
+
 \newcommand{\resumeItem}[1]{
   \item\small{
     {#1 \vspace{-2pt}}
@@ -56,11 +86,11 @@
 }
 
 \newcommand{\resumeSubheading}[4]{
-  \vspace{-2pt}\item
+  \vspace{2pt}\item
     \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
       \textbf{#1} & #2 \\
       \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{-7pt}
+    \end{tabular*}\vspace{-4pt}
 }
 
 \newcommand{\resumeSubSubheading}[2]{
@@ -79,7 +109,7 @@
 
 \newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
 
-\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand\labelitemii{$\vcenter{\hbox{$\bullet$}}$}
 
 \newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
@@ -89,19 +119,20 @@
 %-------------------------------------------
 %%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 \begin{document}
 
 %----------HEADING----------
 \begin{center}
-    \textbf{\Huge \scshape <<basics.name>>} \\ \vspace{1pt}
-    \small <<basics.phone>> $|$ \href{mailto:<<basics.email>>}{\underline{<<basics.email>>}} $|$ 
-    <@ if basics.linkedin @>\href{https://<<basics.linkedin>>}{\underline{<<basics.linkedin>>}}<@ endif @><@ if basics.github @> $|$ \href{https://<<basics.github>>}{\underline{<<basics.github>>}}<@ endif @><@ if basics.website @> $|$ \href{<<basics.website>>}{\underline{<<basics.website>>}}<@ endif @>
+    \textbf{\Huge \scshape <<basics.name|escape_latex>>} \\ \vspace{1pt}
+    <@ if links and links|length > 0 @>\small <@ for link in links @><@ if not loop.first @> $|$ <@ endif @>\href{<<link.url>>}{<<link.display|escape_latex>>}<@ endfor @><@ endif @>
 \end{center}
 
-<@ if summary @>
 %-----------SUMMARY-----------
+<@ if summary @>
 \section{Summary}
-<<summary>>
+<<summary|escape_latex>>
+<@ if basics.ats_optimization @>\atsKeywords{ <<basics.ats_optimization|escape_latex>>}<@ endif @>
 <@ endif @>
 
 %-----------EDUCATION-----------
@@ -109,12 +140,12 @@
   \resumeSubHeadingListStart
     <@ for edu in education @>
     \resumeSubheading
-      {<<edu.institution>>}{<<edu.location>>}
-      {<<edu.degree>>}{<<edu.dates>>}
+      {<<edu.institution|escape_latex>>}{<<edu.location|default("", true)|escape_latex>>}
+      {<<edu.degree|escape_latex>>}{<<edu.dates|escape_latex>>}
       <@ if edu.details @>
       \resumeItemListStart
         <@ for detail in edu.details @>
-        \resumeItem{<<detail>>}
+        \resumeItem{<<detail|escape_latex>>}
         <@ endfor @>
       \resumeItemListEnd
       <@ endif @>
@@ -126,51 +157,60 @@
   \resumeSubHeadingListStart
     <@ for job in experience @>
     \resumeSubheading
-      {<<job.title>>}{<<job.dates>>}
-      {<<job.company>>}{<<job.location>>}
+      {<<job.title|escape_latex>>}{<<job.dates|escape_latex>>}
+      {<<job.company|escape_latex>>}{<<job.location|default("", true)|escape_latex>>}
       \resumeItemListStart
         <@ for bullet in job.bullets @>
-        <@ if bullet.title is defined and bullet.description is defined @>
-        \resumeItem{\textbf{<<bullet.title>>}: <<bullet.description>>}
-        <@ elif bullet.description is defined @>
-        \resumeItem{<<bullet.description>>}
-        <@ else @>
-        \resumeItem{<<bullet>>}
-        <@ endif @>
+        \resumeItem{<<bullet|escape_latex>>}
         <@ endfor @>
       \resumeItemListEnd
     <@ endfor @>
   \resumeSubHeadingListEnd
 
-<@ if projects @>
+
 %-----------PROJECTS-----------
+<@ if projects @>
 \section{Projects}
     \resumeSubHeadingListStart
       <@ for project in projects @>
       \resumeProjectHeading
-          {\textbf{<<project.name>>}<@ if project.tech @> $|$ \emph{<<project.tech>>}<@ endif @>}{<@ if project.dates @><<project.dates>><@ endif @>}
+          {\textbf{<<project.name|escape_latex>>}<@ if project.tech @> $|$ \emph{<<project.tech|escape_latex>>}<@ endif @>}{<@ if project.dates @><<project.dates|escape_latex>><@ endif @>}
           <@ if project.bullets @>
           \resumeItemListStart
             <@ for bullet in project.bullets @>
-            \resumeItem{<<bullet>>}
+            \resumeItem{<<bullet|escape_latex>>}
             <@ endfor @>
           \resumeItemListEnd
           <@ else @>
           \resumeItemListStart
-            \resumeItem{<<project.description>><@ if project.link @> (\href{https://<<project.link>>}{<<project.link>>})<@ endif @>}
+            \resumeItem{<<project.description|escape_latex>><@ if project.link @> (\href{https://<<project.link>>}{<<project.link>>})<@ endif @>}
           \resumeItemListEnd
           <@ endif @>
       <@ endfor @>
     \resumeSubHeadingListEnd
 <@ endif @>
 
-<@ if skills @>
+%-----------LICENSES & CERTIFICATIONS-----------
+<@ if certifications and certifications|length > 0 @>
+\section{Licenses \& Certifications}
+    \resumeSubHeadingListStart
+      <@ for cert in certifications @>
+      \resumeProjectHeading
+          {\textbf{<<cert.name|escape_latex>>}}{<<cert.date|escape_latex>>}
+          \resumeItemListStart
+            \resumeItem{<<cert.issuer|escape_latex>><@ if cert.credential_id @> | ID: <<cert.credential_id|escape_latex>><@ endif @><@ if cert.verification_url @> (\href{https://<<cert.verification_url>>}{Verify})<@ endif @>}
+          \resumeItemListEnd
+      <@ endfor @>
+    \resumeSubHeadingListEnd
+<@ endif @>
+
 %-----------TECHNICAL SKILLS-----------
+<@ if skills and skills|length > 0 @>
 \section{Technical Skills}
  \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
      <@ for category, items in skills.items() @>
-     \textbf{<<category>>}{: <<items>>}<@ if not loop.last @> \\<@ endif @>
+     \textbf{<<category|escape_latex>>}{: <<items|escape_latex>>}<@ if not loop.last @> \\<@ endif @>
      <@ endfor @>
     }}
  \end{itemize}

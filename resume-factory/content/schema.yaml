@@ -1,0 +1,77 @@
+# Resume Factory Schema Documentation
+# This file shows all possible fields and their structure for resume YAML files
+# Fields marked as "required" must be present, "optional" fields can be omitted
+
+# REQUIRED: Basic personal information
+basics:
+  name: "Your Full Name"  # required
+  ats_optimization: ""  # Optional
+
+# OPTIONAL: Contact links and social profiles
+links:
+  - url: "mailto:your.email@example.com"           # Full URL including protocol
+    display: "your.email@example.com"             # Text to display in resume
+  - url: "https://linkedin.com/in/yourprofile"    # LinkedIn profile
+    display: "linkedin.com/in/yourprofile"
+  - url: "https://github.com/yourusername"        # GitHub profile
+    display: "github.com/yourusername" 
+  - url: "https://yourwebsite.com"                # Personal website
+    display: "yourwebsite.com"
+  - url: "tel:+1234567890"                        # Phone number (optional)
+    display: "+1 (234) 567-8890"
+
+# OPTIONAL: Professional summary or objective
+summary: "Brief professional summary highlighting your key strengths, experience, and career goals. Keep it concise and impactful."
+
+# REQUIRED: Educational background (minimum 1 entry)
+education:
+  - institution: "University Name"                # required
+    degree: "Bachelor of Science in Computer Science"  # required
+    dates: "Sep 2018 - May 2022"                 # required
+    location: "City, State"                      # optional
+    details:                                     # optional list of achievements/coursework
+      - "Magna Cum Laude, GPA: 3.8/4.0"
+      - "Relevant Coursework: Data Structures, Algorithms, Machine Learning"
+      - "Activities: Computer Science Club President"
+
+# REQUIRED: Work experience (minimum 1 entry)
+experience:
+  - company: "Company Name"                       # required
+    title: "Software Engineer"                   # required
+    dates: "Jun 2022 - Present"                  # required
+    location: "City, State"                      # optional
+    bullets:                                     # required list (min 1 bullet)
+      - "Developed and deployed scalable web applications serving 10K+ users"
+      - "Reduced system latency by 40% through database optimization"
+      - "Led cross-functional team of 5 engineers on critical product features"
+
+# OPTIONAL: Personal or professional projects
+projects:
+  - name: "Project Name"                          # required if projects section included
+    description: "Brief description of the project and its purpose"  # optional
+    tech: "Python, React, PostgreSQL"            # optional tech stack
+    dates: "Jan 2023 - Mar 2023"                 # optional project duration
+    link: "github.com/username/project-name"     # optional project link
+    bullets:                                     # optional detailed achievements
+      - "Built full-stack application with 95% test coverage"
+      - "Implemented CI/CD pipeline reducing deployment time by 60%"
+
+# OPTIONAL: Technical skills organized by category
+skills:
+  "Programming Languages": "Python, JavaScript, Java, C++"
+  "Frameworks & Libraries": "React, Django, Flask, Node.js"
+  "Databases & Tools": "PostgreSQL, MongoDB, Docker, AWS"
+  "Specializations": "Machine Learning, System Design, API Development"
+
+# OPTIONAL: Professional certifications and licenses
+certifications:
+  - name: "AWS Certified Solutions Architect"     # required if certifications included
+    issuer: "Amazon Web Services"                 # required
+    date: "March 2023"                           # required
+    credential_id: "ABC123DEF456"                # optional verification ID
+    verification_url: "credly.com/badges/your-badge-id"  # optional verification link
+
+# OPTIONAL: SEO and metadata for ATS optimization
+meta:
+  subject: "Software Engineer with 3+ years experience in full-stack development"
+  keywords: "Python, JavaScript, React, AWS, Machine Learning, API Development"

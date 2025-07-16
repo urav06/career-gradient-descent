@@ -1,0 +1,22 @@
+{
+    "folders": [
+        {
+            "name": "Portfolio 🎨",
+            "path": "./portfolio"
+        },
+        {
+            "name": "Resume Factory 🏭",
+            "path": "./resume-factory"
+        },
+        {
+            "name": "CGD-Root 💼",
+            "path": ".",
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/portfolio": true,
+            "**/resume-factory": true,
+        }
+    }
+}
