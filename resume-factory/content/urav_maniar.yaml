@@ -1,0 +1,89 @@
+basics:
+  name: "Urav Maniar"
+
+links:
+  - url: "mailto:urav06@gmail.com"
+    display: "urav06@gmail.com"
+  - url: "https://www.linkedin.com/in/urav/"
+    display: "linkedin.com/in/urav/"
+  - url: "https://github.com/urav06"
+    display: "github.com/urav06"
+  - url: "https://urav-maniar.com/"
+    display: "urav-maniar.com"
+
+summary: "ML Engineer and Software Developer, programming since 2018 with 2+ years building production systems. Currently pursuing Master's in Data Science (Research Stream) focusing on time-series classification. Experience scaling systems to 1M+ users, cost optimization, and technical leadership. Drawn to complex problems requiring both theoretical understanding and practical engineering."
+
+education:
+  - institution: "Monash University"
+    location: null
+    degree: "Master of Data Science (Research Stream)"
+    dates: "Feb 2024 - Dec 2025"
+    details:
+      - "Research on ensemble methods for time-series classification under Dr. Angus Dempster"
+      - "High Distinction grades in Multi-Agent Systems, Data Wrangling, and Project Management"
+
+  - institution: "Monash University"
+    location: null
+    degree: "Bachelor of Computer Science"
+    dates: "Oct 2018 - Dec 2021"
+    details:
+      - "Committee member of the Monash University Tech Club"
+      - "Coursework: Advanced Algorithms, Compiler Development, Programming Paradigms, Architecture"
+
+experience:
+  - company: "Fisdom"
+    location: "Bengaluru, India"
+    title: "Software Engineer"
+    dates: "Feb 2023 - Jan 2024"
+    bullets:
+      - "Designed and deployed Python microservices on Google Cloud Run serving 1M+ users"
+      - "Reduced infrastructure costs by 50% through resource and thread optimization"
+      - "Led organization-wide migration to Terraform for infrastructure management"
+      - "Built internal Python library reducing code duplication across 8+ repositories"
+
+  - company: "Convin"
+    location: "Bengaluru, India"
+    title: "Software Engineer"
+    dates: "Feb 2022 - Feb 2023"
+    bullets:
+      - "Built 7 OAuth integrations with platforms including Zoom, Google Meet, Dialpad, and HubSpot"
+      - "Designed abstract interface system for standardizing new platform integrations"
+      - "Mentored intern team and managed handoff of integration projects"
+
+  - company: "Photobook Worldwide"
+    location: "Kuala Lumpur, Malaysia"
+    title: "Web Developer Intern"
+    dates: "Jul 2020 - Dec 2020"
+    bullets:
+      - "Developed recommendation system for thumbnail generation"
+      - "Built CMS features using agile methodology with regular sprint deliveries"
+
+projects:
+  - name: "Chess Engine"
+    description: "Open-source Python chess engine with MinMax algorithms, neural network evaluation, and reinforcement learning agents"
+    link: "github.com/urav06/chess"
+  - name: "SMEasy"
+    description: "ML Lead and Co-founder for fintech startup focused on SME Lending. Hackathon finalist and attracted investor interest"
+
+skills:
+  "Programming": "Python, JavaScript, TypeScript, Haskell, Java, C++"
+  "ML & Data Science": "PyTorch, TensorFlow, Scikit-learn, NumPy, Pandas, Jupyter, MiniZinc"
+  "Backend & APIs": "Django, Flask, FastAPI, PostgreSQL, OAuth, REST APIs"
+  "Cloud & DevOps": "Google Cloud Platform, Docker, Kubernetes, Terraform, CI/CD, Git"
+  "Specializations": "System Design, Microservices, Time-Series Analysis, Multi-Agent Systems"
+
+certifications:
+  - name: "Google Cloud Professional Cloud Architect"
+    issuer: "Google Cloud"
+    date: "2024"
+    credential_id: "ABC123XYZ"
+    verification_url: "cloud.google.com/certification/verify"
+  - name: "AWS Solutions Architect Associate"
+    issuer: "Amazon Web Services"
+    date: "2023"
+    credential_id: null
+    verification_url: null
+
+meta:
+  subject: "ML Engineer with 3+ years experience in production systems, Python, and cloud architecture"
+  keywords: "Machine Learning, Python, Software Engineering, Cloud Architecture, Google Cloud, Data Science, Algorithms"

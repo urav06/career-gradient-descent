@@ -4,4 +4,22 @@ __pycache__/
 *$py.class
 
 # Virtual environment
-/venv
+/venv/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# LaTeX temporary files
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# OS files
+.DS_Store
+Thumbs.db

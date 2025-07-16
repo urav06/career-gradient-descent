@@ -9,9 +9,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-RUN pip install --no-cache-dir jinja2 pyyaml
+RUN pip install --no-cache-dir jinja2 pyyaml pydantic
 
 WORKDIR /workspace
-COPY generate.py /workspace/
 
-ENTRYPOINT ["python", "generate.py"]
+# Copy the resume factory package
+COPY resume_factory/ /workspace/resume_factory/
+
+ENTRYPOINT ["python", "-m", "resume_factory"]

@@ -1,31 +1,20 @@
-#!/usr/bin/env python3
-"""Resume Generator - YAML to PDF via LaTeX"""
+"""Resume generation core functionality."""
 
 import yaml
 import subprocess
-import argparse
-import random
-import string
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 from jinja2 import Environment, FileSystemLoader
+from pydantic import ValidationError
 
-# Configuration
-DEFAULT_BLUEPRINTS_DIR = '/workspace/blueprints'
-DEFAULT_OUTPUT_DIR = '/workspace/output'
+from .schema import ResumeSchema
+from .utils import escape_latex, extract_name_from_yaml, generate_random_suffix
+
 
 def get_available_blueprints(blueprints_dir: Path) -> List[str]:
     """Discover available blueprints from templates directory"""
     return sorted([f.stem.replace('.tex', '') for f in blueprints_dir.glob('*.tex.j2')]) if blueprints_dir.exists() else []
 
-def extract_name_from_yaml(content: Dict[str, Any]) -> str:
-    """Extract and format name from YAML content for filename"""
-    name = content['basics']['name']
-    return name.lower().replace(' ', '_')
-
-def generate_random_suffix() -> str:
-    """Generate 3-character random suffix"""
-    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=3))
 
 def generate_output_name(yaml_content: Dict[str, Any], manual_suffix: Optional[str], output_path: Path) -> str:
     """Generate output filename with collision handling"""
@@ -40,6 +29,7 @@ def generate_output_name(yaml_content: Dict[str, Any], manual_suffix: Optional[s
     else:
         suffix = generate_random_suffix()
         return f"{filename}_{suffix}"
+
 
 def compile_tex_only(tex_file: str, output_dir: str) -> Path:
     """Compile existing TEX file to PDF"""
@@ -70,9 +60,10 @@ def compile_tex_only(tex_file: str, output_dir: str) -> Path:
     
     return output_path / f"{base_name}.pdf"
 
-def generate_resume(input_file: str, blueprint: str = 'sb2nov', output: Optional[str] = None, 
-                   debug: bool = False, blueprints_dir: str = DEFAULT_BLUEPRINTS_DIR, 
-                   output_dir: str = DEFAULT_OUTPUT_DIR) -> Path:
+
+def generate_resume(input_file: str, blueprint: str = 'jakegut', output: Optional[str] = None, 
+                   debug: bool = False, blueprints_dir: str = '/workspace/blueprints', 
+                   output_dir: str = '/workspace/output') -> Path:
     """Generate PDF from YAML content or compile existing TEX file"""
     
     # Detect workflow based on input file type
@@ -89,19 +80,14 @@ def generate_resume(input_file: str, blueprint: str = 'sb2nov', output: Optional
     # Load and validate YAML
     try:
         content = yaml.safe_load(Path(input_file).read_text())
-        if not all(field in content for field in ['basics', 'education', 'experience']):
-            raise ValueError("Missing required fields: basics, education, or experience")
-        if 'name' not in content['basics']:
-            raise ValueError("Missing required field: basics.name")
+        ResumeSchema(**content)  # Validate schema
     except yaml.YAMLError as e:
         raise ValueError(f"Invalid YAML syntax: {e}")
+    except ValidationError as e:
+        raise ValueError(f"Schema validation failed: {e}")
     
-    # Generate output name and PDF title
+    # Generate output name
     output_name = generate_output_name(content, output, output_path)
-    pdf_title = f"{content['basics']['name']} Resume"
-    
-    # Add PDF metadata to content for template rendering
-    content['pdf_title'] = pdf_title
     
     # Render template
     env = Environment(
@@ -110,6 +96,7 @@ def generate_resume(input_file: str, blueprint: str = 'sb2nov', output: Optional
         variable_start_string='<<', variable_end_string='>>',
         comment_start_string='<#', comment_end_string='#>'
     )
+    env.filters['escape_latex'] = escape_latex
     rendered = env.get_template(f"{blueprint}.tex.j2").render(**content)
     
     # Write and compile
@@ -133,39 +120,3 @@ def generate_resume(input_file: str, blueprint: str = 'sb2nov', output: Optional
             Path(output_path, f"{output_name}{ext}").unlink(missing_ok=True)
     
     return output_path / f"{output_name}.pdf"
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description='Generate resume PDF from YAML or compile TEX')
-    parser.add_argument('input_file', nargs='?', help='YAML content file or TEX file')
-    parser.add_argument('-b', '--blueprint', default='sb2nov', help='Template name')
-    parser.add_argument('-o', '--output', help='Output filename suffix (for YAML input only)')
-    parser.add_argument('-l', '--list', action='store_true', help='List templates')
-    parser.add_argument('--debug', action='store_true', help='Preserve intermediate files for debugging')
-    parser.add_argument('--blueprints-dir', default=DEFAULT_BLUEPRINTS_DIR, help=argparse.SUPPRESS)
-    parser.add_argument('--output-dir', default=DEFAULT_OUTPUT_DIR, help=argparse.SUPPRESS)
-    
-    args = parser.parse_args()
-    
-    if args.list:
-        blueprints = get_available_blueprints(Path(args.blueprints_dir))
-        print("Available templates:", ', '.join(blueprints) if blueprints else 'None found')
-        return
-        
-    if not args.input_file:
-        parser.error("Input file required (use --list to see templates)")
-    
-    try:
-        generate_resume(
-            input_file=args.input_file,
-            blueprint=args.blueprint,
-            output=args.output,
-            debug=args.debug,
-            blueprints_dir=args.blueprints_dir,
-            output_dir=args.output_dir
-        )
-    except (ValueError, RuntimeError) as e:
-        print(f"❌ Error: {e}")
-        exit(1)
-
-if __name__ == '__main__':
-    main()
